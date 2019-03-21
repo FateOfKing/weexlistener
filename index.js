@@ -10,7 +10,6 @@ const watch = require('./scripts/watch')
 const socket = require('./scripts/socket')
 const file = require('./scripts/file')
 
-const qrserver = require('./scripts/qrserver')
 var p = require('path')
 const HOST = '127.0.0.1'
 program
@@ -19,7 +18,7 @@ program
 program
   .command('start')
   .option('--dir [value]', '文件夹名，默认weex')
-  .option('--socketport [value]', '热更新端口默认:9897')
+  .option('--socketport [value]', '热更新端口默认:9888')
   .option('--serverport [value]', '热更新端口默认:9999')
   .option('--qr [value]', '显示二维码')
   .description('启动weex文件监听')
@@ -46,9 +45,7 @@ program
     fs.exists('dist', (res) => {
       if (res) {
         // server.start('./dist/',serverport);
-        if (option.qr == undefined) {
-          qrserver.start('./dist/', serverport)
-        } else {
+        if (option.qr == undefined) {} else {
           server.start('./dist/', serverport);
         }
 
@@ -59,9 +56,7 @@ program
       } else {
         fs.mkdir('dist', function () { //创建目录
           // server.start('./dist/',serverport);
-          if (option.qr == undefined) {
-            qrserver.start('./dist/', serverport)
-          } else {
+          if (option.qr == undefined) {} else {
             server.start('./dist/', serverport);
           }
           watch.start('./dist', true, function () {
@@ -76,8 +71,6 @@ program
 
 
 
-    var ip = require('ip');
-    log.info(chalk.green("如果没有弹出浏览器,请手动打开此地址：" + 'http://' + ip.address() + ":8890/pages/"));
 
 
   })

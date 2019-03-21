@@ -6,7 +6,7 @@ const pretty = require('pretty-hrtime')
  * Prefix.
  */
 
-const prefix = 'weexplus'
+const prefix = 'weexlistener'
 const sep = chalk.gray('·')
 
 /**
@@ -15,7 +15,7 @@ const sep = chalk.gray('·')
  * @param {String} message
  */
 
-exports.log = function(...args) {
+exports.log = function (...args) {
     const msg = format.apply(format, args)
     console.log('[' + chalk.green(prefix) + ']', chalk.white(msg))
 }
@@ -26,7 +26,7 @@ exports.log = function(...args) {
  * @param {String} message
  */
 
-exports.warning = function(...args) {
+exports.warning = function (...args) {
     const msg = format.apply(format, args)
     console.log('[' + chalk.blue(prefix) + ']', sep, chalk.yellow(msg))
 }
@@ -37,7 +37,7 @@ exports.warning = function(...args) {
  * @param {String} message
  */
 
-exports.fatal = function(...args) {
+exports.fatal = function (...args) {
     if (args[0] instanceof Error) args[0] = args[0].message.trim()
     const msg = format.apply(format, args)
     console.log('[' + chalk.blue(prefix) + ']', sep, chalk.red(msg))
@@ -50,22 +50,17 @@ exports.fatal = function(...args) {
  * @param {String} message
  */
 
-exports.success = function(...args) {
+exports.success = function (...args) {
     const msg = format.apply(format, args)
     console.log('[' + chalk.blue(prefix) + ']', sep, chalk.green(msg))
 }
 
-exports.sep = function() {
+exports.sep = function () {
     console.log()
 }
 
 
-exports.info = function(...args) {
+exports.info = function (...args) {
     const msg = format.apply(format, args)
     console.log('[' + chalk.green(prefix) + ']', sep, chalk.green(msg))
 }
-
-
-
-
-

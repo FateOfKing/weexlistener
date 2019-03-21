@@ -83,5 +83,5 @@
  module.exports = {
      doProxy,
      doProxys,
-     doAll
+
  }

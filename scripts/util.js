@@ -95,8 +95,8 @@
    excute,
    open,
    readJson,
-   isRootDir,
-   config,
+   //  isRootDir,
+   //  config,
    readProperties
 
  };
