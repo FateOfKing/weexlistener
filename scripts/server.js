@@ -9,7 +9,6 @@ const util = require('./util.js')
 const update = require('./update.js')
 const log = require('./logger.js')
 const logger = require('./logger')
-const cp = require('child_process');
 
 //创建服务
 
@@ -227,6 +226,5 @@ function readAppboard() {
 
 module.exports = {
     start,
-    // readAppboard
 
 };

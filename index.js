@@ -4,7 +4,6 @@ const chalk = require('chalk');
 const program = require('commander')
 const fs = require('fs')
 const pkg = require('./package.json')
-const server = require('./scripts/server')
 const log = require('./scripts/logger')
 const watch = require('./scripts/watch')
 const socket = require('./scripts/socket')
@@ -17,48 +16,34 @@ program
 
 program
   .command('start')
-  .option('--dir [value]', '文件夹名，默认weex')
+  .option('--dir [value]', '文件夹名')
   .option('--socketport [value]', '热更新端口默认:9888')
-  .option('--serverport [value]', '热更新端口默认:9999')
-  .option('--qr [value]', '显示二维码')
   .description('启动weex文件监听')
   .action((option) => {
 
     var dir = option.dir
     var socketport = option.socketport
-    var serverport = option.serverport
     if (dir == undefined) {
 
       var path = process.cwd();
       dir = p.basename(path)
     }
     if (socketport == undefined) {
-      socketport = 29990
-    }
-    if (serverport == undefined) {
-      serverport = 9999
+      socketport = 29998
     }
 
-    log.info(chalk.green("启动weex监听 dir:" + dir + "serverport:" + serverport + "socketport:" + socketport));
+
+    log.info(chalk.green("启动weex监听 dir:" + dir + " socketport:" + socketport));
     socket.start(socketport);
 
     fs.exists('dist', (res) => {
       if (res) {
-        // server.start('./dist/',serverport);
-        if (option.qr == undefined) {} else {
-          server.start('./dist/', serverport);
-        }
-
         watch.start('./dist', true, function () {
 
           socket.send(HOST, socketport)
         });
       } else {
         fs.mkdir('dist', function () { //创建目录
-          // server.start('./dist/',serverport);
-          if (option.qr == undefined) {} else {
-            server.start('./dist/', serverport);
-          }
           watch.start('./dist', true, function () {
             socket.send(HOST, socketport)
           });
@@ -67,20 +52,7 @@ program
       }
 
     })
-
-
-
-
-
-
   })
-
-
-
-
-
-
-
 
 program.parse(process.argv)
 module.exports = {
